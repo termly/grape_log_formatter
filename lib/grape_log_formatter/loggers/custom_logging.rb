@@ -1,3 +1,5 @@
+require 'grape_logging'
+
 module GrapeLogFormatter
   module Loggers
     class CustomLogging < GrapeLogging::Loggers::Base

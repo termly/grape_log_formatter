@@ -1,7 +1,6 @@
 require 'bundler/setup'
 Bundler.setup
 
-require 'grape_logging'
 require 'grape_log_formatter'
 require 'rspec'
 
