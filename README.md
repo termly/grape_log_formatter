@@ -8,7 +8,7 @@ Add a unified custom format for grape logger.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'sendgrid_client', git: 'git@github.com:resumecompanion/grape_log_formatter.git'
+gem 'grape_log_formatter', git: 'git@github.com:resumecompanion/grape_log_formatter.git'
 ```
 
 And then execute:
