@@ -29,6 +29,20 @@ use GrapeLogging::Middleware::RequestLogger,
             GrapeLogFormatter::Loggers::CustomLogging.new] unless Rails.env.test?
 ```
 
+Add dependency method in user model
+```
+class user < ApplicationRecord
+  def is_temp_user?
+   # return boolean type
+  end
+end
+```
+Add dependency Constants in initialize
+```
+NONE = 'NONE'.freeze
+```
+
+
 ## Output
 
 ```
