@@ -72,7 +72,7 @@ describe GrapeLogFormatter::Loggers::CustomLogging do
       end
 
       it 'set temp_user false' do
-        expect(subject[:temp_user]).to eql NONE
+        expect(subject[:temp_user]).to eql false
       end
     end
 
