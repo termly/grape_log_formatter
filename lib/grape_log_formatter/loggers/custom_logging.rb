@@ -15,27 +15,7 @@ module GrapeLogFormatter
           temp_user: temp_user,
           controller: resource,
           action: action,
-        }.merge(error_message_of(response))
-      end
-
-      private
-
-      def error_message_of(response)
-        return {} if success_request?(response)
-
-        error_message = if response.respond_to?(:body)
-                          response.body
-                        else
-                          response
-                        end
-
-        {
-          error: error_message
         }
-      end
-
-      def success_request?(response)
-        response.respond_to?(:status) && response.status.to_s.match(/^(2|3)/)
       end
     end
   end

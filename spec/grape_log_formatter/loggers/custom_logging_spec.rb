@@ -82,7 +82,7 @@ describe GrapeLogFormatter::Loggers::CustomLogging do
       end
     end
 
-    context 'response is error' do
+    xcontext 'response is error' do
       let(:error_message) { 'error message here' }
       context 'is RackProxyBody' do
         let(:mock_response) do
