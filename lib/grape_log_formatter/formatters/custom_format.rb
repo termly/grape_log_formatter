@@ -7,7 +7,7 @@ module GrapeLogFormatter
         lograge_format = super
 
         if defined?(Datadog::Tracing.log_correlation)
-          dd_format = "[#{Datadog::Tracing.log_correlation}] "
+          dd_format = " [#{Datadog::Tracing.log_correlation}]"
         else
           dd_format = ""
         end
