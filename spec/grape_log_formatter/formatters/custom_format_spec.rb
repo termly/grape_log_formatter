@@ -30,5 +30,21 @@ describe GrapeLogFormatter::Formatters::CustomFormat do
         expect(subject).to include("#{key}=#{value}")
       end
     end
+
+    describe "datadog" do
+      module Datadog
+        class Tracing
+        end
+      end
+
+      it "does not include dd.trace_id" do
+        expect(subject).not_to include("dd.trace_id")
+      end
+
+      it "includes dd.trace_id when Datadog tracing is configured" do
+        allow(Datadog::Tracing).to receive(:log_correlation).and_return("[dd.trace_id=123]")
+        expect(subject).to include("dd.trace_id")
+      end
+    end
   end
 end
