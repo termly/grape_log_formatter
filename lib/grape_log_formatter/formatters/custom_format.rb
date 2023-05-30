@@ -12,7 +12,14 @@ module GrapeLogFormatter
           dd_format = ""
         end
 
-        "[#{datetime.strftime('%Y-%m-%d %H:%M:%S')}] #{severity} --#{dd_format} #{lograge_format}"
+        headers_format = ""
+        headers = request.headers
+        # Outputting all headers
+        headers.each do |key, value|
+          headers_format = headers_format + "#{key}:#{value} "
+        end
+
+        "[#{datetime.strftime('%Y-%m-%d %H:%M:%S')}] #{severity} --#{dd_format} #{lograge_format} #{headers_format}"
       end
     end
   end
