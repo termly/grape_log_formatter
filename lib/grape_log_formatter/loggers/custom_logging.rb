@@ -10,12 +10,17 @@ module GrapeLogFormatter
         resource = request.env['api.endpoint'].instance_variable_get(:@options)[:for]
         action = request.env['api.endpoint'].instance_variable_get(:@options)[:path].first
         temp_user = user.nil? ? NONE : user.is_temp_user?
-        {
+        standard_params = {
           user_id: (user && user.id) || NONE,
           temp_user: temp_user,
           controller: resource,
           action: action,
         }
+
+        if request.env["additional_log_params"].instance_of?(Hash)
+          standard_params.merge!(request.env["additional_log_params"])
+        end
+        standard_params
       end
     end
   end
