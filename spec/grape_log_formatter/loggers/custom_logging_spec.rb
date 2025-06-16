@@ -24,11 +24,13 @@ describe GrapeLogFormatter::Loggers::CustomLogging do
       }
     end
 
+    let(:additional_log_params) { nil }
     let(:mock_request) do
       OpenStruct.new(env: {
-        'api.endpoint' => DummyClass.new(temp_user, options),
-        'warden' => double('warden-object', user: nil)
-      })
+                       'api.endpoint' => DummyClass.new(temp_user, options),
+                       'warden' => double('warden-object', user: nil),
+                       'additional_log_params' => additional_log_params
+                     })
     end
 
     let(:mock_response) do
@@ -46,9 +48,9 @@ describe GrapeLogFormatter::Loggers::CustomLogging do
     context 'user is temp user' do
       let(:mock_request) do
         OpenStruct.new(env: {
-          'api.endpoint' => DummyClass.new(temp_user, options),
-          'warden' => double('warden-object', user: nil)
-        })
+                         'api.endpoint' => DummyClass.new(temp_user, options),
+                         'warden' => double('warden-object', user: nil)
+                       })
       end
       it 'set user from api endpoint' do
         expect(subject[:user_id]).to eql temp_user.id
@@ -62,9 +64,9 @@ describe GrapeLogFormatter::Loggers::CustomLogging do
     context 'user is signin user ' do
       let(:mock_request) do
         OpenStruct.new(env: {
-          'api.endpoint' => DummyClass.new(nil, options),
-          'warden' => double('warden-object', user: user)
-        })
+                         'api.endpoint' => DummyClass.new(nil, options),
+                         'warden' => double('warden-object', user:)
+                       })
       end
 
       it 'set user from warden' do
@@ -73,6 +75,18 @@ describe GrapeLogFormatter::Loggers::CustomLogging do
 
       it 'set temp_user false' do
         expect(subject[:temp_user]).to eql false
+      end
+    end
+
+    context 'request has additional_log_params' do
+      let(:additional_log_params) do
+        {
+          my: 'custom_param'
+        }
+      end
+
+      it 'logs the additional params' do
+        expect(subject[:my]).to eq 'custom_param'
       end
     end
 
